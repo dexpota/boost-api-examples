@@ -4,6 +4,7 @@
 #include <string>
 
 // This solve a bug with clang and libc++
+// http://stackoverflow.com/q/29324619
 template class std::basic_string<char>;
 
 int main(int argc, char** argv) {
