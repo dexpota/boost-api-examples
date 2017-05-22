@@ -94,3 +94,4 @@ fabric.properties
 
 # Generated using ignr.py - github.com/Antrikshy/ignr.py
 *.so
+.idea/
