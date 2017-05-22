@@ -20,7 +20,7 @@ int main(int argc, char** argv){
 	
 	if(vm.count("help")) {
 		std::cout << desc << "\n";
-		return 1;
+		return EXIT_SUCCESS;
 	}
 	
 	try{
@@ -34,5 +34,5 @@ int main(int argc, char** argv){
 	}
 	
 	std::cout << "Fruits count: " << vm["apples"].as<int>() + vm["oranges"].as<int>() << std::endl;
-	return 0;
+	return EXIT_SUCCESS;
 }

@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 
 	std::for_each(begin, end, [](int value){ std::cout << "Number " << value << " is even." << std::endl;});
 
-	return 1;
+	return EXIT_SUCCESS;
 }
 
 

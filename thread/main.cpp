@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 
 	while(1);
 
-	return 1;
+	return EXIT_SUCCESS;
 }
 
 void auto_detach_test(void) {
