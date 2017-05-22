@@ -1,1 +1,1 @@
-add_executable(iterator main.cpp)
+add_executable(filter_iterator main.cpp)
