@@ -1,0 +1,1 @@
+add_executable(function_output_iterator main.cpp)
