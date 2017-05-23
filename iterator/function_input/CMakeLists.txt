@@ -1,0 +1,1 @@
+add_executable(function_input_iterator main.cpp)
