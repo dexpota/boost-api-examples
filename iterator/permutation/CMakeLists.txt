@@ -1,0 +1,1 @@
+add_executable(permutation_iterator main.cpp)
