@@ -2,39 +2,58 @@
 #include <functional>
 #include <vector>
 #include <iostream>
+#include <cmath>
 
-class Number{ 
-public:
-	int i;
-public:
-	explicit Number(int n) {i=n;};
-};
-inline Number operator+(const Number& n1, const Number& n2) { return Number(n1.i + n2.i); };
-
-
-struct print_number : public std::unary_function<Number, void> {
-	void operator() (Number n1) const {
-		std::cout << n1.i << " ";
-	}
-};
-
-struct mul_2 : public std::unary_function<Number, void> {
-	void operator() (Number& n1) const {
-		n1.i = n1.i + n1.i;
-	}
-};
-
-void mul_2_values(std::vector<Number>& values) {
-	std::for_each(values.begin(), values.end(), boost::bind(mul_2(), _1));
+void print_number(std::string prefix, int number) {
+	std::cout << prefix << number << std::endl;
 }
 
-int main(int argc, char** argv) {
-	std::vector<Number> vec;
-	vec.push_back(Number(1));
-	vec.push_back(Number(2));
-	vec.push_back(Number(3));
-	vec.push_back(Number(4));
-	
-	mul_2_values(vec);
-	std::for_each(vec.begin(), vec.end(), print_number());
+int summation(int a, int b){
+	return a + b;
+}
+
+int power(int a, int n) {
+	return std::pow(a, n);
+}
+
+struct Foo {
+	void say_hello_to(std::string s){
+		std::cout << "Hi " << s << "!" << std::endl;
+	}
+};
+
+
+int main(int argc, char* argv[]) {
+	std::vector<int> vector = {1, 2, 3, 4, 5};
+
+	{
+		// simple use of binding function
+		// arbitrary function objects, functions, function pointers, and member function pointers
+		std::for_each(vector.begin(), vector.end(), boost::bind(print_number, "Value: ", _1));
+	}
+
+	{
+		// function composition
+		auto composition = boost::bind(power, boost::bind(summation, _1, 2), _2);
+		std::cout << composition(1, 2) << std::endl;
+	}
+
+	{
+		// member function, make a copy of Foo(), if don't want a copy use ref(Foo()) instead
+		auto member_function = boost::bind(&Foo::say_hello_to, Foo(), _1);
+		member_function("John");
+	}
+
+	{
+		// logical operators
+		std::copy_if(vector.begin(), vector.end(),
+					 std::ostream_iterator<int>(std::cout, " "),
+					 !boost::bind<bool>([](int n)->bool{ return n % 2 == 0; }, _1));
+
+	}
+
+
+
+
+	return EXIT_SUCCESS;
 }
